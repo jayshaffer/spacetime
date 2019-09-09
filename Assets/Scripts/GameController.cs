@@ -7,6 +7,10 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     public Text timerText;
+    public float maxX = 0;
+    public float maxY = 0;
+    public float minX = 0;
+    public float minY = 0;
     float time;
     bool gameOver = false;
     void Start()
@@ -25,6 +29,10 @@ public class GameController : MonoBehaviour
     public void RestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    void GameOver(){
+
     }
 
     IEnumerator StartTimer()

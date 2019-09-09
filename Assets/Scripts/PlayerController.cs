@@ -6,22 +6,31 @@ public class PlayerController : MonoBehaviour
 {
     public float speed;
     public GameObject timerBox;
-    public float time;
-    public bool invincible = false;
-    public float invTime = 0;
+    public float maxSpeed;
+    public GameObject damageIndicator;
+    public GameObject gun;
+    public GameObject bulletSpawner;
+    public Hurtable hurtable;
+    TextMesh damageText;
     TextMesh timerText;
     Rigidbody2D rb;
-    float lastHit = 0;
     bool dead = false;
     GameController gameController;
-    
 
     public void Hit(float amount)
     {
-        if (lastHit == 0 || lastHit + invTime < Time.time)
+        bool hurt = hurtable.Hit(amount);
+        Debug.Log(hurt);
+        if (hurt)
         {
-            time -= amount;
-            lastHit = Time.time;
+            Debug.Log("something");
+            string indicator = "";
+            if (amount > 0)
+            {
+                indicator += "-";
+            }
+            indicator += amount;
+            damageIndicator.GetComponent<DamageIndicator>().Show(indicator);
         }
     }
 
@@ -35,19 +44,39 @@ public class PlayerController : MonoBehaviour
             .GetComponent<GameController>();
     }
 
-    void Update(){
-        if(time < 0){
+    void Fire()
+    {
+        Vector3 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 newPos = pos - gun.transform.position;
+        newPos.z = 0;
+        gun.transform.right = newPos;
+        bulletSpawner.GetComponent<BulletSpawner>().Fire();
+    }
+
+    void Update()
+    {
+        if (hurtable.time < 0)
+        {
             Kill();
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            Fire();
         }
     }
 
     void FixedUpdate()
     {
-        float minutes = Mathf.Floor(time / 60);
-        float seconds = Mathf.RoundToInt(time % 60);
+        float minutes = Mathf.Floor(hurtable.time / 60);
+        float seconds = Mathf.RoundToInt(hurtable.time % 60);
         float horizontal = Input.GetAxisRaw("Horizontal") * speed * Time.fixedDeltaTime;
         float vertical = Input.GetAxisRaw("Vertical") * speed * Time.fixedDeltaTime;
-        rb.velocity = new Vector3(horizontal, vertical, transform.position.z);
+        rb.AddForce(transform.right * speed * horizontal);
+        rb.AddForce(transform.up * speed * vertical);
+        if (rb.velocity.magnitude > maxSpeed)
+        {
+            rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
+        }
         timerText.text = minutes + ":" + seconds;
     }
 
@@ -55,12 +84,13 @@ public class PlayerController : MonoBehaviour
     {
         while (!dead)
         {
-            time--;
+            hurtable.time--;
             yield return new WaitForSeconds(1.0f);
         }
     }
 
-    void Kill(){
-       gameController.RestartScene(); 
+    void Kill()
+    {
+        gameController.RestartScene();
     }
 }

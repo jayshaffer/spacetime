@@ -18,9 +18,9 @@ public class Bullet : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D other) {
-        if(other.gameObject.tag == "Player"){
-            PlayerController player = other.gameObject.GetComponent<PlayerController>();    
-            player.Hit(damage);
+        Hurtable hurtable = other.gameObject.GetComponent<Hurtable>();    
+        if(hurtable != null){
+            hurtable.Hit(damage);
         }
     }
 }

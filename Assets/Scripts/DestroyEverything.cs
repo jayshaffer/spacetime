@@ -15,7 +15,6 @@ public class DestroyEverything : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log("here");
        Destroy(other.gameObject); 
     }
 }

@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
     public float damage;
     public Rigidbody2D rb;
     public LayerMask mask;
+    public GameObject sprite;
     void Start()
     {
        rb.velocity = transform.right * speed; 

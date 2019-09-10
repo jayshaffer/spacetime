@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
     public float maxY = 0;
     public float minX = 0;
     public float minY = 0;
+    public bool isPaused = false;
     float time;
     bool gameOver = false;
     void Start()

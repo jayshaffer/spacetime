@@ -49,6 +49,9 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if(gameController.isPaused){
+            return;
+        }
         if (hurtable.time < 0)
         {
             Kill();

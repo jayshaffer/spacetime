@@ -143,6 +143,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 0
+  sprite: {fileID: 2701092814045519977}
 --- !u!50 &4185585860840521195
 Rigidbody2D:
   serializedVersion: 4

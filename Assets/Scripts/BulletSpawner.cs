@@ -30,6 +30,7 @@ public class BulletSpawner : MonoBehaviour
         Bullet spawnedBullet = Instantiate(bullet, transform.position, transform.rotation).GetComponent<Bullet>();
         spawnedBullet.damage = damage;
         spawnedBullet.mask = mask;
+        spawnedBullet.sprite.GetComponent<Renderer>().material = material;
         lastShot = Time.time;
     }
 }

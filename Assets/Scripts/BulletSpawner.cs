@@ -7,8 +7,10 @@ public class BulletSpawner : MonoBehaviour
     public float delay;
     public bool autoFire = false;
     public GameObject bullet;
+    public LayerMask mask;
+    public float damage;
+    public Material material;
     float lastShot;
-    
 
     void Start()
     {
@@ -25,7 +27,9 @@ public class BulletSpawner : MonoBehaviour
 
     public void Fire()
     {
-        Instantiate(bullet, transform.position, transform.rotation);
+        Bullet spawnedBullet = Instantiate(bullet, transform.position, transform.rotation).GetComponent<Bullet>();
+        spawnedBullet.damage = damage;
+        spawnedBullet.mask = mask;
         lastShot = Time.time;
     }
 }

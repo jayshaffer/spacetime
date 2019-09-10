@@ -24,6 +24,16 @@ public class DamageIndicator : MonoBehaviour
         StartCoroutine("Fade");
     }
 
+   public void DisplayHit(float amount){
+       string indicator = "";
+        if (amount > 0)
+        {
+            indicator += "-";
+        }
+        indicator += amount;
+        Show(indicator);
+    }
+
     void SetOpacity(float value){
         Color color = textMesh.color;        
         color.a = value;

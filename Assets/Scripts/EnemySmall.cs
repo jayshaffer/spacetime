@@ -10,6 +10,8 @@ public class EnemySmall : MonoBehaviour
     public List<BulletSpawner> spawners;
     public float fireAmount;
     public float rotationTimes = 1;
+    public Hurtable hurtable;
+    public DamageIndicator damageIndicator;
     Transform playerTransform;
     bool moving = false;
     float moveDelay = 3;
@@ -25,15 +27,22 @@ public class EnemySmall : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(hurtable.time);
+        if(hurtable.time <= 0){
+            Destroy(gameObject);
+        }
         if (lastMove + moveDelay < Time.time && !moving)
         {
             StartCoroutine("MoveToRandom");
+        }
+        float latestHit = hurtable.GetHitQueueNext();
+        if(latestHit != 0){
+            damageIndicator.DisplayHit(latestHit);
         }
     }
 
     IEnumerator Spin()
     {
-        Debug.Log("here");
         for (int i = 0; i < 36 * rotationTimes; i++)
         {
             transform.Rotate(new Vector3(0, 0, transform.position.z - 10));

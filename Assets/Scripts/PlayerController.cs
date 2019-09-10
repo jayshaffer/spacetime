@@ -19,19 +19,13 @@ public class PlayerController : MonoBehaviour
 
     public void Hit(float amount)
     {
-        bool hurt = hurtable.Hit(amount);
-        Debug.Log(hurt);
-        if (hurt)
+        string indicator = "";
+        if (amount > 0)
         {
-            Debug.Log("something");
-            string indicator = "";
-            if (amount > 0)
-            {
-                indicator += "-";
-            }
-            indicator += amount;
-            damageIndicator.GetComponent<DamageIndicator>().Show(indicator);
+            indicator += "-";
         }
+        indicator += amount;
+        damageIndicator.GetComponent<DamageIndicator>().Show(indicator);
     }
 
     void Start()
@@ -62,6 +56,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Fire();
+        }
+        float latestHit = hurtable.GetHitQueueNext();
+        if(latestHit != 0){
+            Hit(latestHit);
         }
     }
 

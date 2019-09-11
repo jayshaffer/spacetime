@@ -11,8 +11,9 @@ public class EnemySmall : MonoBehaviour
     public float fireAmount;
     public float rotationTimes = 1;
     public Hurtable hurtable;
-    public DamageIndicator damageIndicator;
+    public GameObject damageIndicator;
     Transform playerTransform;
+    PlayerController playerController;
     bool moving = false;
     float moveDelay = 3;
     float lastMove;
@@ -20,14 +21,15 @@ public class EnemySmall : MonoBehaviour
     GameController gameController;
     void Start()
     {
-        playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        GameObject player = GameObject.FindGameObjectWithTag("Player"); 
+        playerTransform = player.GetComponent<Transform>(); 
+        playerController = player.GetComponent<PlayerController>();
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         lastMove = Time.time;
     }
 
     void Update()
     {
-        Debug.Log(hurtable.time);
         if(hurtable.time <= 0){
             Destroy(gameObject);
         }
@@ -36,8 +38,8 @@ public class EnemySmall : MonoBehaviour
             StartCoroutine("MoveToRandom");
         }
         float latestHit = hurtable.GetHitQueueNext();
-        if(latestHit != 0){
-            damageIndicator.DisplayHit(latestHit);
+        if(latestHit != 0 && hurtable.time <= 0){
+            playerController.hurtable.Hit(-10, true);
         }
     }
 

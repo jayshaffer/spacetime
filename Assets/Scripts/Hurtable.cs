@@ -26,9 +26,9 @@ public class Hurtable : MonoBehaviour
         return 0;
     }
 
-    public bool Hit(float damage)
+    public bool Hit(float damage, bool ignoreInvincibility)
     {
-        if (lastHit == 0 || lastHit + invTime < Time.time)
+        if (ignoreInvincibility || lastHit == 0 || lastHit + invTime < Time.time)
         {
             hitQueue.Enqueue(damage);
             time -= damage;

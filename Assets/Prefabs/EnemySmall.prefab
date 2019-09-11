@@ -58,10 +58,11 @@ MonoBehaviour:
   - {fileID: 5005257538372297661}
   - {fileID: 5015370331675354201}
   - {fileID: 2181685647908714539}
-  fireAmount: 10
+  fireAmount: 5
   rotationTimes: 4
   hurtable: {fileID: 8400212247294282042}
-  damageIndicator: {fileID: 6542757427102072217}
+  damageIndicator: {fileID: 4161962996707605853, guid: ba80639c1602143e983f85c2286589d4,
+    type: 3}
 --- !u!114 &8400212247294282042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,18 +261,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1215403401583280228}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6542757427102072217 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5337172117083127293, guid: 7a6b8e29622ea49f38d7ac8efa71a23b,
-    type: 3}
-  m_PrefabInstance: {fileID: 1215403401583280228}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8a1b6cd40e804a30be767ae87016faf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &4211255826992967238
 PrefabInstance:
   m_ObjectHideFlags: 0

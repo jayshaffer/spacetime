@@ -24,7 +24,12 @@ public class GameController : MonoBehaviour
     {
         float minutes = Mathf.Floor(time / 60);
         float seconds = Mathf.RoundToInt(time % 60);
-        timerText.text = minutes + ":" + seconds;
+        string buffer = ":";
+        if(seconds < 10){
+            buffer += "0";
+        }
+
+        timerText.text = minutes + buffer + seconds;
     }
 
     public void RestartScene()
@@ -32,8 +37,9 @@ public class GameController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    void GameOver(){
-
+    public void GameOver(){
+        StartCoroutine("FlashCounter");
+        gameOver = true;
     }
 
     IEnumerator StartTimer()
@@ -45,4 +51,10 @@ public class GameController : MonoBehaviour
         }
     }
 
+    IEnumerator FlashCounter(){
+        while(true){
+            timerText.gameObject.SetActive(!timerText.gameObject.activeSelf);
+            yield return new WaitForSeconds(.5f);
+        }
+    }
 }

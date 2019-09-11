@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other) {
         Hurtable hurtable = other.gameObject.GetComponent<Hurtable>();    
         if(hurtable != null && (mask == (mask | (1 << other.gameObject.layer)))){
-            hurtable.Hit(damage);
+            hurtable.Hit(damage, false);
         }
     }
 }
